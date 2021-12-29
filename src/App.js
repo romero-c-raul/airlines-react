@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import data from './data'
+import DATA from './data'
 
 const App = () => (
   <div className="app">
@@ -13,11 +13,11 @@ const App = () => (
     </p>
     <table>
       <tbody>
-        {data.routes.map(route => {
+        {DATA.routes.map(route => {
           return (
             <tr>
-              <td>{route.airline}</td>
-              <td>{route.src}</td>
+              <td>{DATA.getAirlineById(route.airline) }</td>
+              <td>{DATA.getAirportByCode(route.src)}</td>
               <td>{route.dest}</td>
             </tr>
           )
