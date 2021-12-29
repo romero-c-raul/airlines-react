@@ -1,15 +1,25 @@
 import React from 'react'
 import DATA from '../data'
 
-const Table = () => {
+const Table = ({ columns, rows, format }) => {
   return (
     <table>
+      <thead>
+        <tr>
+          {columns.map(column => {
+            return (
+              <th>{column.name}</th>
+            )
+          })}
+        
+        </tr>
+      </thead>
       <tbody>
         {DATA.routes.map(route => {
           return (
             <tr>
-              <td>{DATA.getAirlineById(route.airline) }</td>
-              <td>{DATA.getAirportByCode(route.src)}</td>
+              <td>{format("airline", route.airline) }</td>
+              <td>{format("src", route.src)}</td>
               <td>{route.dest}</td>
             </tr>
           )
