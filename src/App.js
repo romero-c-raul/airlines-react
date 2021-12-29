@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import DATA from './data'
+import Table from './components/Table';
 
 const App = () => (
   <div className="app">
@@ -11,19 +11,7 @@ const App = () => (
     <p>
       Welcome to the app!
     </p>
-    <table>
-      <tbody>
-        {DATA.routes.map(route => {
-          return (
-            <tr>
-              <td>{DATA.getAirlineById(route.airline) }</td>
-              <td>{DATA.getAirportByCode(route.src)}</td>
-              <td>{route.dest}</td>
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
+    <Table />
   </section>
 </div>
 )
