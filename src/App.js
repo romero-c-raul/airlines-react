@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './App.css';
 import DATA from './data'
 import Table from './components/Table';
@@ -17,15 +17,17 @@ const columns = [
   {name: 'Destination Airport', property: 'dest'},
 ];
 
-const App = () => (
-  <div className="app">
-  <header className="header">
-    <h1 className="title">Airline Routes</h1>
-  </header>
-  <section>
-    <Table className="routes-table" columns={columns} rows="" format={formatValue} />
-  </section>
-</div>
-)
+const App = () => {
+  return (
+    <div className="app">
+    <header className="header">
+      <h1 className="title">Airline Routes</h1>
+    </header>
+    <section>
+      <Table className="routes-table" columns={columns} rows="" format={formatValue} perPage={100} />
+    </section>
+    </div>
+  )
+}
 
 export default App;
