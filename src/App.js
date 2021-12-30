@@ -69,16 +69,22 @@ const App = () => {
     }
   }
 
+  const resetState = () => {
+    setAirport('All')
+    setAirline('All')
+  }
+
   return (
     <div className="app">
     <header className="header">
+      <h1 className="title">Airline Routes</h1>
       <div>
         Show routes on 
-        <Select options={filteredAirlines()} onSelect={handleSelectAirline} name={"airlines"}/>
+        <Select options={filteredAirlines()} onSelect={handleSelectAirline} name={"airlines"} state={airline}/>
         flying in or out of
-        <Select options={filteredAirports()} onSelect={handleSelectAirport} name={"airports"}/>
+        <Select options={filteredAirports()} onSelect={handleSelectAirport} name={"airports"} state={airport}/>
+        <button onClick={resetState}>Clear</button>
       </div>
-      <h1 className="title">Airline Routes</h1>
     </header>
     <section>
       <Table className="routes-table" columns={columns} rows="" format={formatValue} perPage={25} airline={airline} airport={airport} />

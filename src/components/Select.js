@@ -1,9 +1,9 @@
 import React from "react"
 
-const Select = ({ onSelect, name, options }) => {
+const Select = ({ onSelect, name, options, state }) => {
   return (
     <select name={name} onChange={onSelect}>
-      <option value="All">All {name}</option>
+      <option value="All" selected={state === 'All'}>All {name}</option>
       {options.map(option => {
         return (
           <option 
