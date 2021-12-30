@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import data from '../data'
 import DATA from '../data'
 
 const Table = ({ columns, rows, format, perPage, airline }) => {
@@ -15,32 +14,17 @@ const Table = ({ columns, rows, format, perPage, airline }) => {
 
   const start = page * perPage
 
-  const allRoutes = () => {
-    const selection = DATA.routes.slice(start, start + perPage)
-    return selection
-    // return selection.map(route => {
-    //   return (
-    //     <tr key={route.airline + route.src + route.dest}>
-    //       <td>{format("airline", route.airline) }</td>
-    //       <td>{format("src", route.src)}</td>
-    //       <td>{route.dest}</td>
-    //     </tr>
-    //   )
-    // })
-  }
-
   const filteredRoutes = () => {
     let selectedRoutes = null
 
-    if (airline == 'All') {
+    if (airline === 'All') {
       selectedRoutes = DATA.routes
     } else {
       selectedRoutes = DATA.routes.filter(route => {
-        return DATA.getAirlineById(route.airline).name == airline
+        return DATA.getAirlineById(route.airline).name === airline
       })
     }
 
-    console.log(selectedRoutes.length)
     return selectedRoutes
   }
 

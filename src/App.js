@@ -1,7 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import DATA from './data'
 import Table from './components/Table';
+import Select from './components/Select';
+
 
 function formatValue(property, value) {
   if (property === 'airline') {
@@ -29,14 +31,7 @@ const App = () => {
     <header className="header">
       <div>
         Show routes on 
-        <select name="airlines" onChange={handleSelectAirline}>
-          <option value="All">All airlines</option>
-          {DATA.airlines.map(airline => {
-            return (
-              <option value={airline.name} key={airline.name + airline.src}>{airline.name}</option>
-            )
-          })}
-        </select>
+        <Select options="" onSelect={handleSelectAirline}/>
       </div>
       <h1 className="title">Airline Routes</h1>
     </header>
