@@ -18,13 +18,30 @@ const columns = [
 ];
 
 const App = () => {
+  const [airline, setAirline] = useState('All')
+
+  const handleSelectAirline = (e) => { 
+    setAirline(e.target.value)
+  }
+
   return (
     <div className="app">
     <header className="header">
+      <div>
+        Show routes on 
+        <select name="airlines" onChange={handleSelectAirline}>
+          <option value="All">All airlines</option>
+          {DATA.airlines.map(airline => {
+            return (
+              <option value={airline.name} key={airline.name + airline.src}>{airline.name}</option>
+            )
+          })}
+        </select>
+      </div>
       <h1 className="title">Airline Routes</h1>
     </header>
     <section>
-      <Table className="routes-table" columns={columns} rows="" format={formatValue} perPage={100} />
+      <Table className="routes-table" columns={columns} rows="" format={formatValue} perPage={25} airline={airline}/>
     </section>
     </div>
   )

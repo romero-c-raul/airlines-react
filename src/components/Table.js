@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import data from '../data'
 import DATA from '../data'
 
-const Table = ({ columns, rows, format, perPage }) => {
+const Table = ({ columns, rows, format, perPage, airline }) => {
   const [page, setPage] = useState(0)
 
   const nextPage = (e) => {
@@ -13,13 +13,40 @@ const Table = ({ columns, rows, format, perPage }) => {
     setPage(page - 1)
   }
 
-  // const maxRoutesPerPage = 25
   const start = page * perPage
 
-  const routesToDisplay = () => {
+  const allRoutes = () => {
     const selection = DATA.routes.slice(start, start + perPage)
+    return selection
+    // return selection.map(route => {
+    //   return (
+    //     <tr key={route.airline + route.src + route.dest}>
+    //       <td>{format("airline", route.airline) }</td>
+    //       <td>{format("src", route.src)}</td>
+    //       <td>{route.dest}</td>
+    //     </tr>
+    //   )
+    // })
+  }
 
-    return selection.map(route => {
+  const filteredRoutes = () => {
+    let selectedRoutes = null
+
+    if (airline == 'All') {
+      selectedRoutes = DATA.routes
+    } else {
+      selectedRoutes = DATA.routes.filter(route => {
+        return DATA.getAirlineById(route.airline).name == airline
+      })
+    }
+
+    console.log(selectedRoutes.length)
+    return selectedRoutes
+  }
+
+  const routesToDisplay = () => {
+   const selection = filteredRoutes().slice(start, start + perPage)
+   return selection.map(route => {
       return (
         <tr key={route.airline + route.src + route.dest}>
           <td>{format("airline", route.airline) }</td>
@@ -30,6 +57,8 @@ const Table = ({ columns, rows, format, perPage }) => {
     })
   }
 
+  const routesCount = filteredRoutes().length
+
   return (
     <div>
       <table>
@@ -37,7 +66,7 @@ const Table = ({ columns, rows, format, perPage }) => {
           <tr>
             {columns.map(column => {
               return (
-                <th>{column.name}</th>
+                <th key={column.name}>{column.name}</th>
               )
             })}
           </tr>
@@ -52,10 +81,10 @@ const Table = ({ columns, rows, format, perPage }) => {
       >
         Previous page
       </button>
-      Showing {start + 1} - {start + perPage > data.routes.length ? data.routes.length : start + perPage} of {data.routes.length} routes.
+      Showing {start + 1} - {start + perPage > routesCount ? routesCount : start + perPage} of {routesCount} routes.
       <button 
         onClick={nextPage} 
-        disabled={start + perPage >= data.routes.length ? true : false}
+        disabled={start + perPage >= routesCount ? true : false}
       >
         Next page
       </button>
