@@ -6,7 +6,13 @@ const Select = ({ onSelect, name, options }) => {
       <option value="All">All {name}</option>
       {options.map(option => {
         return (
-          <option value={option.name} key={option.id || option.code}>{option.name}</option>
+          <option 
+            value={option.name} 
+            key={option.id || option.code}
+            disabled={option.disabled}
+          >
+            {option.name}
+          </option>
         )
       })}
     </select>

@@ -32,11 +32,41 @@ const App = () => {
   }
 
   const filteredAirlines = () => {
-    return DATA.airlines
+    if (airline === 'All') {
+      return DATA.airlines.map(currentAirline => {
+        currentAirline.disabled = null
+        return currentAirline
+      })
+    } else {
+      return DATA.airlines.map(currentAirline => {
+        if (currentAirline.name === airline) {
+          currentAirline.disabled = false
+        } else {
+          currentAirline.disabled = true
+        }
+
+        return currentAirline
+      })
+    }
   }
 
   const filteredAirports = () => {
-    return DATA.airports
+    if (airport === 'All') {
+      return DATA.airports.map(currentAirport => {
+        currentAirport.disabled = null
+        return currentAirport
+      })
+    } else {
+      return DATA.airports.map(currentAirport => {
+        if (currentAirport.name === airport) {
+          currentAirport.disabled = false
+        } else {
+          currentAirport.disabled = true
+        }
+
+        return currentAirport
+      })
+    }
   }
 
   return (

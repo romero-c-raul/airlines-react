@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import DATA from '../data'
 
-const Table = ({ columns, rows, format, perPage, airline }) => {
+const Table = ({ columns, rows, format, perPage, airline, airport }) => {
   const [page, setPage] = useState(0)
 
   const nextPage = (e) => {
@@ -16,15 +16,32 @@ const Table = ({ columns, rows, format, perPage, airline }) => {
 
   // In filtered routes, I am filtering all the data from the routes based on the airline and airport state
   const filteredRoutes = () => {
-    let selectedRoutes = null
+    let selectedRoutes = DATA.routes
 
-    if (airline === 'All') {
-      selectedRoutes = DATA.routes
-    } else {
+    if (airline === 'All' && airport === 'All') {
+      return selectedRoutes
+    } else if (airline !== 'All'){
       selectedRoutes = DATA.routes.filter(route => {
         return DATA.getAirlineById(route.airline).name === airline
       })
     }
+
+    console.log(selectedRoutes)
+
+    if (airport !== 'All') {
+      selectedRoutes = selectedRoutes.filter(route => {
+        const source = DATA.getAirportByCode(route.src)
+        const destination = DATA.getAirportByCode(route.dest)
+
+        console.log(source.name, source.name === airport)
+        console.log(destination.name, destination.name === airport)
+        console.log(airport)
+        
+        return source.name === airport || destination.name === airport
+      })
+    }
+
+    console.log(selectedRoutes)
 
     return selectedRoutes
   }
@@ -36,7 +53,7 @@ const Table = ({ columns, rows, format, perPage, airline }) => {
         <tr key={route.airline + route.src + route.dest}>
           <td>{format("airline", route.airline) }</td>
           <td>{format("src", route.src)}</td>
-          <td>{route.dest}</td>
+          <td>{format("dest", route.dest)}</td>
         </tr>
       )
     })
