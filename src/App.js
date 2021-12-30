@@ -21,9 +21,22 @@ const columns = [
 
 const App = () => {
   const [airline, setAirline] = useState('All')
+  const [airport, setAirport] = useState('All')
 
   const handleSelectAirline = (e) => { 
     setAirline(e.target.value)
+  }
+
+  const handleSelectAirport = (e) => {
+    setAirport(e.target.value)
+  }
+
+  const filteredAirlines = () => {
+    return DATA.airlines
+  }
+
+  const filteredAirports = () => {
+    return DATA.airports
   }
 
   return (
@@ -31,12 +44,14 @@ const App = () => {
     <header className="header">
       <div>
         Show routes on 
-        <Select options="" onSelect={handleSelectAirline}/>
+        <Select options={filteredAirlines()} onSelect={handleSelectAirline} name={"airlines"}/>
+        flying in or out of
+        <Select options={filteredAirports()} onSelect={handleSelectAirport} name={"airports"}/>
       </div>
       <h1 className="title">Airline Routes</h1>
     </header>
     <section>
-      <Table className="routes-table" columns={columns} rows="" format={formatValue} perPage={25} airline={airline}/>
+      <Table className="routes-table" columns={columns} rows="" format={formatValue} perPage={25} airline={airline} airport={airport} />
     </section>
     </div>
   )

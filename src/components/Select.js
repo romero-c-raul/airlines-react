@@ -1,13 +1,12 @@
 import React from "react"
-import DATA from '../data'
 
-const Select = ({ onSelect }) => {
+const Select = ({ onSelect, name, options }) => {
   return (
-    <select name="airlines" onChange={onSelect}>
-      <option value="All">All airlines</option>
-      {DATA.airlines.map(airline => {
+    <select name={name} onChange={onSelect}>
+      <option value="All">All {name}</option>
+      {options.map(option => {
         return (
-          <option value={airline.name} key={airline.name + airline.src}>{airline.name}</option>
+          <option value={option.name} key={option.id || option.code}>{option.name}</option>
         )
       })}
     </select>

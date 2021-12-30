@@ -14,6 +14,7 @@ const Table = ({ columns, rows, format, perPage, airline }) => {
 
   const start = page * perPage
 
+  // In filtered routes, I am filtering all the data from the routes based on the airline and airport state
   const filteredRoutes = () => {
     let selectedRoutes = null
 
